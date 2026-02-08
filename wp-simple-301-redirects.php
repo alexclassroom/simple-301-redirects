@@ -7,7 +7,7 @@
  * Author URI:      https://wpdeveloper.net/
  * Text Domain:     simple-301-redirects
  * Domain Path:     /languages
- * Version:         2.0.11
+ * Version:         2.1.0
  */
 
 /*  Copyright 2009-2021  WPDeveloper
@@ -44,6 +44,7 @@ if (!class_exists("Simple301redirects")) {
 		{
 			$this->define_constants();
 			add_action('plugins_loaded', [$this, 'on_plugins_loaded']);
+			add_action('init', [$this, 'load_textdomain']);
 
 			if( ! defined('WP_CLI') || ( defined('WP_CLI') && ! WP_CLI ) ) {
 				add_action('simple301redirects_loaded', [$this, 'init_plugin']);
@@ -69,7 +70,7 @@ if (!class_exists("Simple301redirects")) {
 
 		public function define_constants()
 		{
-			define('SIMPLE301REDIRECTS_VERSION', '2.0.11');
+			define('SIMPLE301REDIRECTS_VERSION', '2.1.0');
 			define('SIMPLE301REDIRECTS_SETTINGS_NAME', '301_redirects');
 			define('SIMPLE301REDIRECTS_PLUGIN_FILE', __FILE__);
 			define('SIMPLE301REDIRECTS_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -87,7 +88,6 @@ if (!class_exists("Simple301redirects")) {
 		 */
 		public function init_plugin()
 		{
-			$this->load_textdomain();
 			if (is_admin()) {
 				new Simple301Redirects\Admin();
 			}
